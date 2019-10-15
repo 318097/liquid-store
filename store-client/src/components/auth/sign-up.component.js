@@ -18,14 +18,15 @@ const SignUp = () => {
   }
 
   return (
-    <Fragment>
+    <div>
+      <h3>Sign up</h3>
       <form onSubmit={handleSignUp}>
-        <input value={name} onChange={e => setName(e.target.value)} type="text" /><br />
-        <input value={email} onChange={e => setEmail(e.target.value)} type="text" /><br />
-        <input value={password} onChange={e => setPassword(e.target.value)} type="password" /><br />
-        <input type="submit" />
+        <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} type="text" /><br />
+        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} type="text" /><br />
+        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} type="password" /><br />
+        <input type="submit" value="Sign up" />
       </form>
-    </Fragment>
+    </div>
   )
 }
 

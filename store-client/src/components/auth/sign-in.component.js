@@ -31,14 +31,15 @@ const SignIn = () => {
   }
 
   return (
-    <Fragment>
+    <div>
+      <h3>Sign in</h3>
       <form onSubmit={handleLogin}>
-        <input value={email} onChange={e => setEmail(e.target.value)} type="text"/><br/>
-        <input value={password} onChange={e => setPassword(e.target.value)} type="password" /><br/>
-        <input type="submit"/>
+        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} type="text"/><br/>
+        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} type="password" /><br/>
+        <input type="submit" value="Sign in" />
       </form>
         <button type="primary" onClick={signInWithGoogle}>Google Sign in</button>
-    </Fragment>
+    </div>
   )
 }
 
