@@ -15,7 +15,7 @@ const App = ({ currentUser }) => {
       <Header />
       <div>
         <Switch>
-          <Route exact path="/sign-in" render={() => currentUser ? <Redirect to="/home" /> : <SignIn />} />
+          <Route exact path="/sign-in" render={() => currentUser ? <Redirect to="/" /> : <SignIn />} />
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/" component={Home} />
         </Switch>
