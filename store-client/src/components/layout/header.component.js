@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 const Header = ({ currentUser }) => {
   return (
-    <div>
-      <header>
+    <header>
+      <h2>
         Liquid Store
-      </header>
+      </h2>
       <div>
-
+        {currentUser ? currentUser.name : 'Not signed in'}
       </div>
-    </div>
+    </header>
   )
 }
 
