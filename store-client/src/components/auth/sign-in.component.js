@@ -1,9 +1,10 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../../store/user/user.actions';
 
 import { auth, signInWithGoogle, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-const SignIn = () => {
-  const [user, setUser] = useState(null);
+const SignIn = ({ setCurrentUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,10 +13,10 @@ const SignIn = () => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapShot => {
-          setUser({id: userRef.id, ...snapShot.data()});
+          setCurrentUser({ id: userRef.id, ...snapShot.data() });
         });
       } else {
-        setUser(null);
+        setCurrentUser(null);
       }
     });
   }, []);
@@ -34,13 +35,17 @@ const SignIn = () => {
     <div>
       <h3>Sign in</h3>
       <form onSubmit={handleLogin}>
-        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} type="text"/><br/>
-        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} type="password" /><br/>
+        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} type="text" /><br />
+        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} type="password" /><br />
         <input type="submit" value="Sign in" />
       </form>
-        <button type="primary" onClick={signInWithGoogle}>Google Sign in</button>
+      <button type="primary" onClick={signInWithGoogle}>Google Sign in</button>
     </div>
   )
 }
 
-export default SignIn
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
