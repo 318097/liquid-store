@@ -6,6 +6,7 @@ import Header from './components/layout/header.component';
 import Home from './components/home.component';
 import SignIn from './components/auth/sign-in.component';
 import SignUp from './components/auth/sign-up.component';
+import Checkout from './components/checkout/checkout.component';
 
 import './app.scss';
 
@@ -17,6 +18,7 @@ const App = ({ currentUser }) => {
         <Switch>
           <Route exact path="/sign-in" render={() => currentUser ? <Redirect to="/" /> : <SignIn />} />
           <Route exact path="/sign-up" component={SignUp} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/" component={Home} />
         </Switch>
       </div>

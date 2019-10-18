@@ -1,21 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { Icon, Badge } from 'antd';
 
-const Header = ({ currentUser }) => {
+import Cart from '../cart/cart.component';
+import { toggleCartVisibility } from '../../store/cart/cart.actions';
+
+const StyledHeader = styled.header`
+  padding: 0 10px;
+  background: rgb(216, 216, 216);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h2{
+    flex-grow: 1;
+  }
+  nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+`
+
+const Header = ({ currentUser, cartTotalCount, dispatch }) => {
   return (
-    <header>
+    <StyledHeader>
       <h2>
         Liquid Store
       </h2>
-      <div>
-        {currentUser ? currentUser.name : 'Not signed in'}
-      </div>
-    </header>
+      <nav>
+        <Icon style={{ fontSize: '20px', color: currentUser ? 'green' : 'white' }} type="user" />
+        <div style={{position: 'relative'}}>
+        <Badge style={{ fontSize: '10px', backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset'  }} count={cartTotalCount}>
+          <Icon style={{ fontSize: '20px' }} type="shopping-cart" onClick={() => dispatch(toggleCartVisibility())} />
+        </Badge>
+          <Cart />
+          </div>
+      </nav>
+    </StyledHeader>
   )
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  cartTotalCount: state.cart.cart.reduce((sum, item) => sum + item.quantity, 0)
 });
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
 import ProductCard from './product/product-card.component';
+import { data } from '../data';
 
 const Home = () => {
-  const data = Array(10).fill(0);
   return (
     <section>
       <h2>Home</h2>
-      {data.map((item, index) => <ProductCard key={index} />)}
+      <div style={{ display: 'flex', alignItems: 'space-between' }}>
+        {data.map(item => <ProductCard key={item._id} item={item} />)}
+      </div>
     </section>
   )
 }
