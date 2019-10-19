@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
 import { toggleCartVisibility } from '../../store/cart/cart.actions';
+import { selectCartVisibility, selectCartItems } from '../../store/cart/cart.selectors';
 import './cart.styles.scss';
 
 const CartContainer = styled.div`
@@ -28,7 +29,7 @@ const ItemRow = styled.div`
   }
 `
 
-const Card = ({ history, dispatch, cartVisibility, cart }) => {
+const Card = ({ history, dispatch, cartVisibility, cartItems }) => {
   const handleClick = () => {
     history.push('/checkout');
     dispatch(toggleCartVisibility());
@@ -36,7 +37,7 @@ const Card = ({ history, dispatch, cartVisibility, cart }) => {
 
   return (
     <CartContainer cartVisibility={cartVisibility} className="cart">
-      {cart.length ? cart.map(item => (
+      {cartItems.length ? cartItems.map(item => (
         <ItemRow key={item._id}>
           <div className="name">
             {item.name}
@@ -53,9 +54,9 @@ const Card = ({ history, dispatch, cartVisibility, cart }) => {
   )
 }
 
-const mapStateToProps = ({ cart }) => ({
-  cartVisibility: cart.cartVisibility,
-  cart: cart.cart
+const mapStateToProps = (state) => ({
+  cartVisibility: selectCartVisibility(state),
+  cartItems: selectCartItems(state)
 });
 
 export default withRouter(connect(mapStateToProps)(Card))

@@ -6,5 +6,6 @@
   "license": "MIT",
   "scripts": {
     "dev": "cd store-client && yarn start"
-  }
+  },
+  "dependencies": {}
 }

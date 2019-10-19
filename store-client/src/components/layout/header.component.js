@@ -5,6 +5,7 @@ import { Icon, Badge } from 'antd';
 
 import Cart from '../cart/cart.component';
 import { toggleCartVisibility } from '../../store/cart/cart.actions';
+import { selectCartItemsCount } from '../../store/cart/cart.selectors';
 
 const StyledHeader = styled.header`
   padding: 0 10px;
@@ -30,12 +31,12 @@ const Header = ({ currentUser, cartTotalCount, dispatch }) => {
       </h2>
       <nav>
         <Icon style={{ fontSize: '20px', color: currentUser ? 'green' : 'white' }} type="user" />
-        <div style={{position: 'relative'}}>
-        <Badge style={{ fontSize: '10px', backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset'  }} count={cartTotalCount}>
-          <Icon style={{ fontSize: '20px' }} type="shopping-cart" onClick={() => dispatch(toggleCartVisibility())} />
-        </Badge>
+        <div style={{ position: 'relative' }}>
+          <Badge style={{ fontSize: '10px', backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }} count={cartTotalCount}>
+            <Icon style={{ fontSize: '20px' }} type="shopping-cart" onClick={() => dispatch(toggleCartVisibility())} />
+          </Badge>
           <Cart />
-          </div>
+        </div>
       </nav>
     </StyledHeader>
   )
@@ -43,7 +44,7 @@ const Header = ({ currentUser, cartTotalCount, dispatch }) => {
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
-  cartTotalCount: state.cart.cart.reduce((sum, item) => sum + item.quantity, 0)
+  cartTotalCount: selectCartItemsCount(state)
 });
 
 export default connect(mapStateToProps)(Header);

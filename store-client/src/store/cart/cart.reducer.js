@@ -2,7 +2,7 @@ import { ADD_TO_CART, TOGGLE_CART_VISIBILITY } from './cart.types';
 import { addToCart } from './cart.utils';
 
 const initialState = {
-  cart: [],
+  cartItems: [],
   cartVisibility: false,
 };
 
@@ -11,7 +11,7 @@ const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cart: addToCart(state.cart, action.payload)
+        cartItems: addToCart(state.cartItems, action.payload)
       }
     case TOGGLE_CART_VISIBILITY:
       return {

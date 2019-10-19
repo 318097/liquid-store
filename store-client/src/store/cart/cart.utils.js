@@ -1,7 +1,7 @@
-export const addToCart = (cart, product) => {
-  const findProductById = cart.find(item => item._id === product._id);
+export const addToCart = (cartItems, product) => {
+  const findProductById = cartItems.find(item => item._id === product._id);
   if (findProductById) {
-    return cart.map(item => {
+    return cartItems.map(item => {
       if (item._id === product._id) {
         return {
           ...item,
@@ -11,5 +11,5 @@ export const addToCart = (cart, product) => {
     })
   }
 
-  return [...cart, { ...product, quantity: 1 }];
+  return [...cartItems, { ...product, quantity: 1 }];
 };
