@@ -15,7 +15,7 @@ const ProductCard = ({ item, addToCart }) => {
           {item.name}
         </span>
         <span>
-          Rs/- {item.rate}
+          Rs/- {item.price}
         </span>
       </div>
       <button onClick={() => addToCart(item)}>Add to Cart</button>

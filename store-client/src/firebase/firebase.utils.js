@@ -45,3 +45,24 @@ provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
+
+export const addCollectionAndDocuments = async (collectionName, documents) => {
+  const collectionRef = firestore.collection('products');
+
+  const data = Array(10).fill(null).map((_, index) => ({
+    productId: index + 1,
+    name: `Product-${index + 1}`,
+    price: Math.floor(Math.random() * 100),
+    url: 'https://source.unsplash.com/random/200x250'
+  }));
+
+  const batch = firestore.batch();
+
+  data.forEach(document => {
+    const newDocumentRef = collectionRef.doc();
+    batch.set(newDocumentRef, { ...document });
+  });
+
+  const result = await batch.commit();
+  console.log(result);
+}
